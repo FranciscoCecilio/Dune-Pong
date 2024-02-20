@@ -63,7 +63,7 @@ APongGameStateBase::APongGameStateBase()
 	PlayerScore_Right = 0;
 
 	// Maximum score.
-	MaxScore = 3; //TODO: Ideally we could set this on Unreal editor.
+	MaxScore = 3; 
 
 	// How has scored last.
 	LastScore = ELastScored::EPlayer_Left;
@@ -109,7 +109,6 @@ void APongGameStateBase::StartGame()
 
 		TheBall->ResetMaxSpeed();
 
-		// TODO: REVISITAR!!!!
 		// Enable the keyboard to let the player play.
 		UWidgetBlueprintLibrary::SetInputMode_GameOnly(UGameplayStatics::GetPlayerController(GetWorld(), 0));
 
@@ -274,7 +273,7 @@ void APongGameStateBase::InitLevelActors()
 			return;
 		}
 
-		// Get Paddle references. (Esta procura nao vai funcionar?)
+		// Get Paddle references.
 		TArray<AActor*> FoundActors;
 		UGameplayStatics::GetAllActorsOfClass(GetWorld(), APaddle::StaticClass(), FoundActors);
 

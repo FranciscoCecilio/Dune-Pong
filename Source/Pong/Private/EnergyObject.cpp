@@ -71,7 +71,7 @@ void AEnergyObject::Tick(float DeltaTime)
 	SetActorLocation(NewLocation);
 }
 
-void AEnergyObject::SetRandomEffect()
+void AEnergyObject::SetupEnergyObject()
 {
 	float random = FMath::RandRange(1, 3);
 
@@ -122,7 +122,7 @@ void AEnergyObject::NotifyActorBeginOverlap(AActor* OtherActor)
 		}
 
 		Ball->SetNewEnergyEffect(CurrentEffect, CurrentMaterial);
-
+		
 		// Selfdestruct 
 		Destroy();
 	}

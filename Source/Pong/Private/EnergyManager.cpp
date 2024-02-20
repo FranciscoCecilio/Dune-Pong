@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
 #include "EnergyManager.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 AEnergyManager::AEnergyManager()
@@ -36,28 +36,29 @@ void AEnergyManager::SpawnEnergyObject()
     if (EnergyObject)
     {
         // Optionally, you can set up additional logic for the spawned EnergyObject
-        EnergyObject->SetRandomEffect();
+        EnergyObject->SetupEnergyObject();
     }
-
-    SpawnedActors.Add(SpawnedActor);
 }
 
 void AEnergyManager::DestroySpawnedEffects()
 {
-    //if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Cyan, FString::Printf(TEXT("DestroySpawnedEffects.")));
+    // Get EnergyActor references. 
+    TArray<AActor*> FoundActors;
+    UGameplayStatics::GetAllActorsOfClass(GetWorld(), AEnergyObject::StaticClass(), FoundActors);
 
-    // Loop through the array and destroy each actor
-    for (AActor* Actor : SpawnedActors)
+    for (AActor* TActor : FoundActors)
     {
-        if (Actor)
+        AEnergyObject* EnergyActor = Cast<AEnergyObject>(TActor);
+
+        if (EnergyActor != nullptr)
         {
-            Actor->Destroy();
+            // Destroy the actor.
+            EnergyActor->Destroy();
         }
     }
-
-    // Martelada gigante mas nao ha tempooo
+    
     // Also restart BG music
-   // Get the audio component from the actor
+    // Get the audio component from the actor
     UAudioComponent* MyAudioComponent = BGMusicActor->FindComponentByClass<UAudioComponent>();
     if (MyAudioComponent)
     {
@@ -68,7 +69,5 @@ void AEnergyManager::DestroySpawnedEffects()
     else
     {
         //if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Red, FString::Printf(TEXT("DestroySpawnedEffects. Cast falhou...")));
-
     }
 }
-

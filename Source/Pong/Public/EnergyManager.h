@@ -8,6 +8,7 @@
 #include "EnergyObject.h" 
 #include "EnergyManager.generated.h"
 
+
 UCLASS()
 class PONG_API AEnergyManager : public AActor
 {
@@ -27,7 +28,6 @@ protected:
 	// Function to spawn an EnergyObject
 	void SpawnEnergyObject();
 
-	TArray<AActor*> SpawnedActors;
 
 
 public:	
@@ -45,7 +45,4 @@ public:
 
 	// To be called on Reset
 	void DestroySpawnedEffects();
-
-
-
 };
